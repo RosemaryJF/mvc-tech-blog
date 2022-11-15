@@ -15,10 +15,10 @@ Blog.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [25],
+        len: [10],
       }
     },
-    createdOn: {
+    created_on: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -27,10 +27,10 @@ Blog.init(
       },
     },
     content: {
-      type: DataTypes.LONGTEXT,
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    authorId: {
+    author_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
