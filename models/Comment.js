@@ -15,7 +15,7 @@ Comment.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    createdOn: {
+    created_on: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -23,14 +23,14 @@ Comment.init(
         isDate: true,
       },
     },
-    authorId: {
+    author_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
         key: 'id',
       }
     },
-    blogId: {
+    blog_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'blog',
