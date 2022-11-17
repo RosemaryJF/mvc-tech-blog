@@ -7,14 +7,14 @@ const newCommentHandler = async (event) => {
   if (commentContent) {
     const response = await fetch(`/api/blog/${id}`, {
       method: 'POST',
-      body: JSON.stringify({ commentContent, authorId, postId }),
+      body: JSON.stringify({ commentContent }),
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
     if (response.ok) {
-      document.location.replace('/feed');
+      document.location.replace(`/api/blog/${id}`);
     } else {
       alert('Failed to create new comment');
     }

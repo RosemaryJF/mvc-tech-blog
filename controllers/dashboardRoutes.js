@@ -13,13 +13,20 @@ router.get('/', withAuth, async (req, res) => {
         },
       ],
     });
+    console.log(blogData);
 
     // Serialize data so the template can read it
-    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    const blogs = blogData.map((blogData) => {
+      const blog = blogData.get({ plain: true });
+      blog.is_author = blog.author_id === req.session.user_id;
+      return blog;
+    });
 
+    console.log(blogs);
     // Pass serialized data and session flag into template
     res.render('dashboard', {
       blogs,
+      user_id: req.session.user_id,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -34,15 +41,17 @@ router.get('/blog/:id', withAuth, async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
       ],
     });
+    res.json(blogData)
 
-    const blog = blogData.get({ plain: true });
+    const blogs = blogData.get({ plain: true });
 
     res.render('blog', {
-      ...blog,
+      blogs,
+      user_id: req.session.user_id,
       logged_in: req.session.logged_in
     });
   } catch (err) {
