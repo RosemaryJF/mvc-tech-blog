@@ -59,6 +59,11 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
+      res.render('homepage', {
+        blogs,
+        user_id: req.session.user_id,
+        logged_in: req.session.logged_in
+      });
       res.status(204).end();
     });
   } else {
