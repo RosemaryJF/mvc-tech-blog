@@ -35,9 +35,9 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/blog/:id', withAuth, async (req, res) => {
+router.get('/api/blog/:id', withAuth, async (req, res) => {
   try {
-    const blogData = await Blog.findByPk(req.params.id, {
+    const blogData = await Blog.findOne(req.params.id, {
       include: [
         {
           model: User,
@@ -49,7 +49,7 @@ router.get('/blog/:id', withAuth, async (req, res) => {
 
     const blogs = blogData.get({ plain: true });
 
-    res.render('blog', {
+    res.render('/api/blog/:id', {
       blogs,
       user_id: req.session.user_id,
       logged_in: req.session.logged_in

@@ -15,43 +15,40 @@
 
   <body>
     <!-- Navigation Bar Card  -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">The Tech Blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/" id="home-link">Home</a>
-        <a class="nav-link" href="/dashboard/{{user.id}}" id="dashbrd-link">Dashboard</a>
-        {{#if logged_in}}
-        <a class="nav-link" href="/logout" id="logout-link">Logout</a>
-        {{else}}
-        <a class="nav-link" href="/login" id="login-link">Login</a>
-        {{/if}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">The Tech Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/" id="home-link">Home</a>
+          <a class="nav-link" href="/dashboard/{{user.id}}" id="dashbrd-link">Dashboard</a>
+          {{#if logged_in}}
+          <a class="nav-link" href="/logout" id="logout-link">Logout</a>
+          {{else}}
+          <a class="nav-link" href="/login" id="login-link">Login</a>
+          {{/if}}
+        </div>
       </div>
-    </div>
-  </nav>
-      
-      <!-- Main Card  -->
-      <main class="card main-card border-0 rounded-0">
+    </nav>
+        
+    <!-- Main Card  -->
+    <main class="card-deck main-card text-light bg-dark rounded-0">
+      <div class="card">
         <!-- Handlebars renders the sub layout -->
         {{{body}}}
-      </main>
+      </div>
+    </main>
 
-      <!-- Footer Card  -->
-      {{!-- <footer class="card border-0">
-        <div class="card-body footer-card">
-          <h6 class="footer-title">MUSIC FWENDS built by </p>
-          <p><a href="https://github.com/Virgona" class="text-secondary">Tobias</a></p>
-          <p><a href="https://github.com/AlexMastroianni" class="text-secondary">Alex</a></p>
-          <p><a href="https://github.com/ChristopherGatt" class="text-secondary">Chris</a></p>
-          <p><a href="https://github.com/RosemaryJF" class="text-secondary">Rosemary</a></p>
-          &copy; 2022
-        </div>
-      </footer> --}}
-
-    </div>
+    <!-- Footer Card  -->
+    <footer class="card row text-light bg-dark border-0 rounded-0">
+      <div class="card-body footer-card ">
+        <h6 class="footer-content">
+          The Tech Blog was built by <a href="https://github.com/RosemaryJF" class="text-secondary">RosemaryJF</a> &copy; 2022
+        </h6>
+      </div>
+    </footer>
 
     <!-- Renders script for logged in users only -->
     {{#if logged_in}}

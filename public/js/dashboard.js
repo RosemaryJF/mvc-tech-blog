@@ -1,5 +1,5 @@
 // Function to redirect the user to clicked on blog page
-const viewBlogBtnHandler = async (event) => {
+const viewBlogHandler = async (event) => {
   event.preventDefault();
 
   if (event) {
@@ -19,5 +19,5 @@ const viewBlogBtnHandler = async (event) => {
 };
 
 document
-  .querySelector('.view-blog-btn')
-  .addEventListener('submit', viewBlogBtnHandler);
+  .querySelector('#view-blog-btn')
+  .addEventListener('submit', viewBlogHandler);
