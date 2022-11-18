@@ -1,16 +1,21 @@
   <!-- Card to show previous posts and applicable comments  -->
   <!-- All rendered through handlebar utility functions -->
   {{#if blogs.length}}
-  <div class="blog-list">
+  <div class="blog-list col-10">
     {{#each blogs as |blog|}}
       <div class="card-body text-white bg-secondary mb-3" id="existing-posts">
-        <h5 class="card-title">On {{blog.created_on}} {{blog.user.username}} blogged: <a class="text-reset" href="/blog/{{blog.id}}">{{blog.title}}</a></h5>  
-        <p class="card-text">{{blog.content}}</p>
-        <button class="btn btn-md" id="view-blog-btn" data-id="{{blog.id}}">View Blog</button>
-        {{#if blog.is_author}}
-          <button class="btn btn-md" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
-          <button class="btn btn-md" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
-        {{/if}}
+        <div class="card-title">
+          <h5 ><a class="text-reset" href="/api/blog/{{blog.id}}">{{blog.title}}</a>
+          <p class="card-title float-right">By {{blog.user.username}} on {{blog.created_on}}</p>
+        </div>
+        <div class="card-text">
+          <p>{{blog.content}}</p>
+          <button class="btn btn-outline-secondary" id="view-blog-btn" data-id="{{blog.id}}">View Blog</button>
+          {{#if blog.is_author}}
+            <button class="btn btn-outline-secondary" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
+            <button class="btn btn-outline-secondary" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+          {{/if}}
+        </div>
       </div>
     {{/each}}
 
@@ -18,16 +23,15 @@
     <div class="card-footer existing-comments">
         {{#each comments as |comment|}}
           <small class="text-muted">
-            {{comment.user.username}} commented: <a class="text-reset" href="/comment/{{comment.id}}">{{comment.text}}</a>
+            {{comment.user.username}} commented: <a class="text-reset" href="/api/comment/{{comment.id}}">{{comment.text}}</a>
           </small>
         {{/each}}
         {{/if}}
         {{#if logged_in}}
-          <button class="btn btn-md" id="add-comment-btn" data-id="{{blog.id}}">Add Comment</button>
+          <button class="btn btn-outline-secondary" id="add-comment-btn" data-id="{{blog.id}}">Add Comment</button>
         {{/if}}
       </div>
   </div>
   {{/if}}
-
 
 <script src="/js/dashboard.js"></script>

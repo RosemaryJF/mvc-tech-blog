@@ -9,7 +9,6 @@ router.get('/', withAuth, async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['username'],
         },
       ],
     });
@@ -37,7 +36,7 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/api/blog/:id', withAuth, async (req, res) => {
   try {
-    const blogData = await Blog.findOne(req.params.id, {
+    const blogData = await Blog.findByPK(req.params.id, {
       include: [
         {
           model: User,

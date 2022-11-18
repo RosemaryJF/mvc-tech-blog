@@ -34,8 +34,8 @@
     </nav>
         
     <!-- Main Card  -->
-    <main class="card-deck main-card text-light bg-dark rounded-0">
-      <div class="card">
+    <main class="card-deck main-card text-light">
+      <div class="card bg-dark rounded-0">
         <!-- Handlebars renders the sub layout -->
         {{{body}}}
       </div>
@@ -54,7 +54,6 @@
     {{#if logged_in}}
       <script src="/js/logout.js"></script>
     {{/if}}
-    <script src="/js/dashboard.js"></script>
   </body>
 
   <script

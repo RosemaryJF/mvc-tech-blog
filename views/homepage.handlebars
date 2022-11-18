@@ -1,14 +1,22 @@
 <!-- Card to show previous posts and applicable comments  -->
 <!-- All rendered through handlebar utility functions -->
   {{#if blogs.length}}
-    <div class="blog-list">
+    <div class="blog-list col-10">
     {{#each blogs as |blog|}}
     <div class="card-body text-white bg-secondary mb-3" id="existing-posts">
-      <h5 class="card-title">On {{blog.created_on}} {{blog.user.username}} blogged: <a href="/blog/{{blog.id}}" {{blog.title}}></a></h5>  
-      <p class="card-text">{{blog.content}}</p>
-      {{#if logged_in}}
-      <button class="btn btn-md" id="add-comment-btn" data-id="{{blog.id}}">Add Comment</button>
-      {{/if}}
+      <div class="card-title">
+        <h5><a class="text-reset" href="/blog/{{blog.id}}"> {{blog.title}}</a></h5>
+        <p class="card-title float-right">By {{blog.user.username}} on {{blog.created_on}}</p>
+        {{#if logged_in}}
+        <button class="btn btn-outline-secondary" id="view-blog-btn" data-id="{{blog.id}}">View Blog</button>
+        {{/if}}
+      </div>
+      <div class="card-text">
+        <p>{{blog.content}}</p>
+        {{#if logged_in}}
+        <button class="btn btn-md btn-light" id="add-comment-btn" data-id="{{blog.id}}">Add Comment</button>
+        {{/if}}
+      </div>
     </div>
     {{/each}}
   </div>

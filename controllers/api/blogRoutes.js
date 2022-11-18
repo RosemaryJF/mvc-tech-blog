@@ -7,27 +7,21 @@ const withAuth = require('../../utils/auth');
 router.get('/', async (req, res) => {
   try {
     const blogData = await Blog.findAll({
-      order: [
-        ['created_on', 'DESC']
-      ],
-      include: [{
-        model: User,
-        attributes: ['username']
-      },
-      {
-        model: Comment,
-        attributes: [
-          'id',
-          'text',
-          'author_id',
-          'blog_id',
-          'created_on'
-        ],
-        include: {
+      include: [
+        {
           model: User,
           attributes: ['username']
-        }
-      }],
+        },
+        {
+          model: Comment,
+          attributes: [
+            'id',
+            'text',
+            'author_id',
+            'blog_id',
+            'created_on'
+          ],
+        }],
     });
     res.status(200).json(blogData);
   } catch (err) {
@@ -39,7 +33,7 @@ router.get('/', async (req, res) => {
 // And associated comments
 router.get('/:id', withAuth, async (req, res) => {
   try {
-    const singleBlog = await Blog.findOne(req.params.id, {
+    const singleBlog = await Blog.findByPk(req.params.id, {
       include: [{
         model: User,
         attributes: ['username']
