@@ -13,14 +13,16 @@ router.get('/', async (req, res) => {
           attributes: ['username']
         },
         {
-          model: Comment,
-          attributes: [
-            'id',
-            'text',
-            'author_id',
-            'blog_id',
-            'created_on'
-          ],
+          include: [{
+            model: Comment,
+            attributes: [
+              'id',
+              'text',
+              'author_id',
+              'blog_id',
+              'created_on'
+            ],
+          }]
         }],
     });
     res.status(200).json(blogData);
@@ -29,16 +31,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Retrieves a single blog
-// And associated comments
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const singleBlog = await Blog.findByPk(req.params.id, {
+    const blogData = await Blog.findByPk(req.params.id, {
       include: [{
         model: User,
         attributes: ['username']
-      },
-      {
+      }],
+      include: [{
         model: Comment,
         attributes: [
           'id',
@@ -47,19 +47,14 @@ router.get('/:id', withAuth, async (req, res) => {
           'blog_id',
           'created_on'
         ],
-        include: {
-          model: User,
-          attributes: ['username']
-        }
-      }],
+      }]
     });
-
-    if (!singleBlog) {
-      res.status(404).json({ message: 'No blog found with that id!' });
+    if (!blogData) {
+      res.status(404).json({ message: 'No blog with this id!' });
       return;
     }
-
-    res.status(200).json(singleBlog);
+    const blog = blogData.get({ plain: true });
+    res.render('blog', blog);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -69,10 +64,10 @@ router.get('/:id', withAuth, async (req, res) => {
 router.post('/', withAuth, async (req, res) => {
   try {
     const newBlog = await Blog.create({
-      ...req.body,
+      title: req.body.title,
+      content: req.body.content,
       author_id: req.session.user_id,
     });
-
     res.status(200).json(newBlog);
   } catch (err) {
     res.status(400).json(err);
@@ -82,14 +77,16 @@ router.post('/', withAuth, async (req, res) => {
 // Updates an existing blog
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const updatedBlog = await Blog.update({
-      ...req.body,
+    const updatedBlog = await Blog.update(req.params.id, {
+      title: req.body.title,
+      contect: req.body.content,
       user_id: req.session.user_id,
     });
 
     res.status(200).json(updatedBlog);
   } catch (err) {
     res.status(400).json(err);
+    console.error(err);
   }
 });
 
@@ -111,6 +108,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(200).json(blogData);
   } catch (err) {
     res.status(500).json(err);
+    console.error(err);
   }
 });
 

@@ -34,25 +34,30 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/api/blog/:id', withAuth, async (req, res) => {
+router.get('/api/blog/:id', async (req, res) => {
   try {
-    const blogData = await Blog.findByPK(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-      ],
+    const blogData = await Blog.findByPk(req.params.id, {
+      include: [{
+        model: User,
+        attributes: ['username']
+      }],
+      include: [{
+        model: Comment,
+        attributes: [
+          'id',
+          'text',
+          'author_id',
+          'blog_id',
+          'created_on'
+        ],
+      }]
     });
-    res.json(blogData)
-
-    const blogs = blogData.get({ plain: true });
-
-    res.render('/api/blog/:id', {
-      blogs,
-      user_id: req.session.user_id,
-      logged_in: req.session.logged_in
-    });
+    if (!blogData) {
+      res.status(404).json({ message: 'No blog with this id!' });
+      return;
+    }
+    const blog = blogData.get({ plain: true });
+    res.render('blog', blog);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -98,4 +103,18 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+router.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.render('homepage', {
+        blogs,
+        user_id: req.session.user_id,
+        logged_in: req.session.logged_in
+      });
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 module.exports = router;
