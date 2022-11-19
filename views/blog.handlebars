@@ -3,41 +3,31 @@
   <h2>View Blog</h2>
   <div class="single-blog card-body text-white bg-secondary mb-3">
     <div class="card-title">
-      <h5 ><a class="text-reset" href="/api/blog/{{blog.id}}">{{this.title}}</a>
+      <h5>{{this.title}}
       <p class="card-title float-right">By {{this.user.username}} on {{format_date created_on}}</p>
     </div>
     <div class="card-text">
       <p>{{this.content}}</p>
-      {{#if this.is_author}}
-        <form class="edit-blog-form">
-        <div>
-          <input type="text" name="blog-title" value="{{blog.title}}" />
-          <br><br>
-          <textarea id="blog-content" name="blog-content"></textarea>
-          <p>{{this.content}}</p>
-        </div>
-        <div>
-          {{!-- <a href="/blog/{{blog.id}}">{{blog.comments.length}}</a>
-        </div> --}}
-        <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
-        <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+        <form class="form edit-blog-form">
+          <div class="form-group form-row">
+            <input type="text" class="form-control col-8" name="blog-title" value="{{this.title}}" />
+            <br><br>
+            <textarea type="text" class="form-control col-10" id="blog-content" name="blog-content">{{this.content}}</textarea>
+          </div>
+            {{!-- <a href="/blog/{{blog.id}}">{{blog.comments.length}}</a>
+          </div> --}}
+          <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
+          <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+          <div class="form-group form-row comment-div" style="margin-top: 1rem">
+            <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
+            <br><br>
+            <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
+          </div>
         </form>
-      {{/if}}
     </div>
   </div>
   {{/if}}
 </div>
 
-
-
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
-  <div>
-  <button type="submit">Add Comment</button>
-  </div>
-</form>
-
 <script src="/js/blog.js"></script>
-{{!-- <script src="/js/comment.js"></script> --}}
+<script src="/js/comment.js"></script>

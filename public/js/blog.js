@@ -1,27 +1,26 @@
-// Function to redirect the user to clicked on blog page
-const viewBlogHandler = async (event) => {
-  event.preventDefault();
+// // Function to redirect the user to clicked on blog page
+// const viewBlogHandler = async (event) => {
 
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
+//   if (event.target.hasAttribute('data-id')) {
+//     const id = event.target.getAttribute('data-id');
 
-    console.log('A blog button has been clicked');
-    const response = await fetch(`/api/blog/${id}`, {
-      method: 'GET',
-      body: JSON.stringify(),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+//     console.log('A blog button has been clicked');
+//     const response = await fetch(`/api/blog/${id}`, {
+//       method: 'GET',
+//       body: JSON.stringify(),
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
 
-    if (response.ok) {
-      document.location.replace(`/api/blog/${id}`);
-    } else {
-      console.error();
-      alert(response.statusText);
-    }
-  }
-};
+//     if (response.ok) {
+//       document.location.replace(`/api/blog/${id}`);
+//     } else {
+//       console.error();
+//       alert(response.statusText);
+//     }
+//   }
+// };
 
 // Function to create new blog
 const newBlogHandler = async (event) => {
@@ -93,10 +92,6 @@ const delButtonHandler = async (event) => {
     }
   }
 };
-
-document
-  .querySelector('.view-blog-btn')
-  .addEventListener('click', viewBlogHandler);
 
 document
   .querySelector('.new-blog-form')
