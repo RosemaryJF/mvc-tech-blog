@@ -1,13 +1,13 @@
 // Function to create new blog
 const newBlogHandler = async (event) => {
   event.preventDefault();
-  const blogTitle = document.querySelector('#new-blog-title').value;
-  const blogContent = document.querySelector('#new-blog-content').value;
+  const title = document.querySelector('#new-blog-title').value;
+  const content = document.querySelector('#new-blog-content').value;
 
-  if (blogTitle && blogContent) {
+  if (title && content) {
     const response = await fetch(`/api/blogs`, {
       method: 'POST',
-      body: JSON.stringify({ blogTitle, blogContent }),
+      body: JSON.stringify({ title, content }),
       headers: {
         'Content-Type': 'application/json'
       }
