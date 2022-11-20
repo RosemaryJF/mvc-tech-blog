@@ -1,8 +1,27 @@
 <!-- Card to show previous posts and applicable comments  -->
 <!-- All rendered through handlebar utility functions -->
+<div class="homepage-div col-10">
+  {{#if logged_in}}
+  <div class="card-body text-white bg-secondary mb-3 new-blog">
+  <h2>Add a new blog!</h2>
+    <form class="form new-blog-form">
+      <div class="form-group form-row">
+        <input type="text" class="form-control col-8" id="new-blog-title" value="Blog Title" />
+        <textarea type="text" class="form-control col-10" style="margin-top: 1rem" id="new-blog-content">Blog Content</textarea>
+        <button class="btn btn-outline-light btn-sm" type="submit" id="add-blog-btn" style="margin-left: 1rem">Create Blog</button>
+      </div>
+    </form>
+    <form class="form new-comment-form">
+      <div class="form-group form-row comment-div" style="margin-top: 1rem">
+        <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
+        <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
+      </div>
+    </form>
+  </div>
+  {{/if}}
   {{#if blogs.length}}
-    <div class=" blog-list col-10">
-    {{#each blogs as |blog|}}
+  <div class="blog-list col-10">
+  {{#each blogs as |blog|}}
     <div class="card-body text-white bg-secondary mb-3" id="existing-posts">
       <div class="card-title">
         <h5>
@@ -29,6 +48,7 @@
     {{/each}}
   </div>
   {{/if}}
+</div>
 
 <script src="/js/blog.js"></script>
 <script src="/js/comment.js"></script>

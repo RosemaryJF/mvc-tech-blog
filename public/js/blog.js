@@ -26,34 +26,36 @@ const newBlogHandler = async (event) => {
 const updateBlogHandler = async (event) => {
   event.preventDefault();
   if (event.target.hasAttribute('data-id')) {
-    const title = document.querySelector('#blog-title').value.trim();
-    const content = document.querySelector('#blog-content').value.trim();
 
-    if (title && content) {
-      const response = await fetch(`/api/blog/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          title,
-          content
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+    const title = document.querySelector('#blog-title').value;
+    const content = document.querySelector('#blog-content').value;
 
-      if (response.ok) {
-        document.location.replace(`/api/blog/${id}`);
-      } else {
-        alert('Failed to update blog', response.statusText);
+    const response = await fetch(`/api/blog/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title,
+        content
+      }),
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+
+    if (response.ok) {
+      document.location.replace(`/api/blog/${id}`);
+      console.log('You have successfully updated this blog!');
+    } else {
+      console.error();
+      alert('Failed to update blog', response.statusText);
     }
   }
 };
 
+
 // Function to delete blog
 const deleteBlogHandler = async (event) => {
   console.log(event.target);
-  if (event.target.hasAttribute('data-id')) {
+  if (event.target.querySelector('#delete-blog-btn')) {
     const id = event.target.getAttribute('data-id');
 
     const response = await fetch(`/api/blog/${id}`, {
@@ -61,8 +63,10 @@ const deleteBlogHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/dashbaord');
+      console.log('You have successfully deleted this blog!');
+      document.location.replace(`/api/blog/${id}`);
     } else {
+      console.error();
       alert('Failed to delete blog');
     }
   }
@@ -74,7 +78,7 @@ document
 
 document
   .querySelector('.edit-blog-form')
-  .addEventListener('submit', updateBlogHandler);
+  .addEventListener('click', updateBlogHandler);
 
 document
   .querySelector('.delete-blog-btn')

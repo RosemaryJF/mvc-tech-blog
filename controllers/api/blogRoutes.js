@@ -76,21 +76,29 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // Updates an existing blog
-router.put('/:id', withAuth, async (req, res) => {
-  try {
-    const updatedBlog = await Blog.update(req.params.id, {
+router.put('/:id', async (req, res) => {
+  Blog.update(
+    {
       title: req.body.title,
       content: req.body.content,
-    });
-    if (!blogData) {
-      res.status(404).json({ message: 'No blog with this id!' });
-      return;
+    },
+    {
+      where: {
+        id: req.params.id
+      }
     }
-    res.status(200).json(updatedBlog);
-  } catch (err) {
-    res.status(400).json(err);
-    console.error(err);
-  }
+  )
+    .then(updatedBlogData => {
+      if (!updatedBlogData) {
+        res.status(404).json({ message: 'No blog with this id!' });
+        return;
+      }
+      res.status(200).json(updatedBlogData);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json(err);
+    });
 });
 
 // Deletes an existing blog

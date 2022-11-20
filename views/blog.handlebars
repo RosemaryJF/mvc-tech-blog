@@ -8,27 +8,42 @@
     </div>
     <div class="card-text">
       <p>{{this.content}}</p>
-        <form class="form edit-blog-form">
-          <div class="form-group form-row">
-            <input type="text" class="form-control col-8" id="blog-title" value="{{this.title}}" />
-            <textarea type="text" class="form-control col-10" style="margin-top: 1rem" id="blog-content">{{this.content}}</textarea>
-            {{!-- <a href="/blog/{{blog.id}}">{{blog.comments.length}}</a>
-          </div> --}}
-            <div class="form-group" style="margin-top: 1rem">
-              <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" style="margin-left: 1rem" data-id="{{blog.id}}">Update Blog</button>
-              <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
-            </div>
-          </div>
-        </form>
-        <form class="form new-comment-form">
-          <div class="form-group form-row comment-div" style="margin-top: 1rem">
-            <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
-            <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
-          </div>
-        </form>
     </div>
-  </div>
+    <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
   {{/if}}
+    <div class="card-body col-10 existing-comments">
+      {{#if comments.lenth}}
+      {{#each comments as |comment|}}
+        <p class="text-white">
+          <small>{{comment.user.username}}commented: <a href="/api/comment/{{comment.id}}"></a>
+            {{comment.text}}
+          </small>
+        </p>
+      {{/each}}
+      {{/if}}
+    </div>
+
+    <form class="form edit-blog-form">
+    {{#if this}}
+      <h4>Edit Blog</h4>
+      <div class="form-group form-row">
+        <input type="text" class="form-control col-8" id="blog-title" value="{{this.title}}" />
+        <textarea type="text" class="form-control col-10" style="margin-top: 1rem" id="blog-content">{{this.content}}</textarea>
+        <div class="form-group" style="margin-top: 1rem">
+          <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" style="margin-left: 1rem" data-id="{{blog.id}}">Update Blog</button>
+          
+        </div>
+      </div>
+    </form>
+    <form class="form new-comment-form">
+      <h6>Add a Comment</h6>
+      <div class="form-group form-row comment-div" style="margin-top: 1rem">
+        <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
+        <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
+      </div>
+    {{/if}}
+    </form>
+  </div>
 </div>
 
 <script src="/js/blog.js"></script>
