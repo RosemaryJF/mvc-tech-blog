@@ -1,35 +1,11 @@
-// // Function to redirect the user to clicked on blog page
-// const viewBlogHandler = async (event) => {
-
-//   if (event.target.hasAttribute('data-id')) {
-//     const id = event.target.getAttribute('data-id');
-
-//     console.log('A blog button has been clicked');
-//     const response = await fetch(`/api/blog/${id}`, {
-//       method: 'GET',
-//       body: JSON.stringify(),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-
-//     if (response.ok) {
-//       document.location.replace(`/api/blog/${id}`);
-//     } else {
-//       console.error();
-//       alert(response.statusText);
-//     }
-//   }
-// };
-
 // Function to create new blog
 const newBlogHandler = async (event) => {
   event.preventDefault();
-  const blogTitle = document.querySelector('#blog-title').value.trim();
-  const blogContent = document.querySelector('#blog-content').value.trim();
+  const blogTitle = document.querySelector('#new-blog-title').value;
+  const blogContent = document.querySelector('#new-blog-content').value;
 
   if (blogTitle && blogContent) {
-    const response = await fetch('/api/blog', {
+    const response = await fetch(`/api/blogs`, {
       method: 'POST',
       body: JSON.stringify({ blogTitle, blogContent }),
       headers: {
@@ -41,6 +17,7 @@ const newBlogHandler = async (event) => {
       document.location.replace('/dashboard');
     } else {
       alert('Failed to create new blog');
+      console.error();
     }
   }
 };
@@ -49,15 +26,13 @@ const newBlogHandler = async (event) => {
 const updateBlogHandler = async (event) => {
   event.preventDefault();
   if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
     const blogTitle = document.querySelector('#blog-title').value.trim();
     const blogContent = document.querySelector('#blog-content').value.trim();
 
-    if (id && blogTitle && blogContent) {
-      const response = await fetch(`/api/blog/${id}`, {
+    if (blogTitle && blogContent) {
+      const response = await fetch(`/api/blogs/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          id,
           blogTitle,
           blogContent
         }),
@@ -67,21 +42,21 @@ const updateBlogHandler = async (event) => {
       });
 
       if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace(`/api/blogs/${id}`);
       } else {
-        alert('Failed to create new blog');
+        alert('Failed to update blog', response.statusText);
       }
     }
   }
 };
 
 // Function to delete blog
-const delButtonHandler = async (event) => {
+const deleteBlogHandler = async (event) => {
   console.log(event.target);
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
-    const response = await fetch(`/api/blog/${id}`, {
+    const response = await fetch(`/api/blogs/${id}`, {
       method: 'DELETE'
     });
 
@@ -99,8 +74,8 @@ document
 
 document
   .querySelector('.edit-blog-form')
-  .addEventListener('click', updateBlogHandler);
+  .addEventListener('submit', updateBlogHandler);
 
 document
-  .querySelector('.blog-list')
-  .addEventListener('click', delButtonHandler);
+  .querySelector('.delete-blog-btn')
+  .addEventListener('submit', deleteBlogHandler);

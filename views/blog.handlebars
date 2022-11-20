@@ -10,17 +10,17 @@
       <p>{{this.content}}</p>
         <form class="form edit-blog-form">
           <div class="form-group form-row">
-            <input type="text" class="form-control col-8" name="blog-title" value="{{this.title}}" />
-            <br><br>
-            <textarea type="text" class="form-control col-10" id="blog-content" name="blog-content">{{this.content}}</textarea>
-          </div>
+            <input type="text" class="form-control col-8" id="blog-title" value="{{this.title}}" />
+            <textarea type="text" class="form-control col-10" id="blog-content">{{this.content}}</textarea>
             {{!-- <a href="/blog/{{blog.id}}">{{blog.comments.length}}</a>
           </div> --}}
-          <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
-          <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+            <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
+            <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+          </div>
+        </form>
+        <form class="form new-comment-form">
           <div class="form-group form-row comment-div" style="margin-top: 1rem">
             <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
-            <br><br>
             <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
           </div>
         </form>

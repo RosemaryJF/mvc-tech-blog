@@ -1,34 +1,52 @@
   <!-- Card to show previous posts and applicable comments  -->
   <!-- All rendered through handlebar utility functions -->
-  {{#if blogs.length}}
-  <div class="blog-list col-10">
-    {{#each blogs as |blog|}}
-      <div class="card-body text-white bg-secondary mb-3" id="existing-posts">
-        <div class="card-title">
-          <h5 ><a class="text-reset" href="/api/blog/{{blog.id}}">{{blog.title}}</a>
-          <p class="card-title float-right">By {{blog.user.username}} on {{format_date created_on}}</p>
+  <div class="dashboard-div col-10">
+    {{#if blogs.length}}
+    <div class="blog-list">
+      {{#each blogs as |blog|}}
+        <div class="card-body text-white bg-secondary mb-3" id="existing-posts">
+          <div class="card-title">
+            <h5 ><a class="text-reset" href="/api/blog/{{blog.id}}">{{blog.title}}</a>
+            <p class="card-title float-right">By {{blog.user.username}} on {{format_date created_on}}</p>
+          </div>
+          <div class="card-text">
+            <p>{{blog.content}}</p>
+            <p>To view this blog click the title!</p>
+          </div>
         </div>
-        <div class="card-text">
-          <p>{{blog.content}}</p>
-          <p>To view this blog click the title!</p>
-        </div>
-      </div>
-    {{/each}}
+      {{/each}}
 
-    {{#if comments.length}}
-    <div class="card-footer existing-comments">
+      {{#if comments.length}}
+      <div class="card-body col-10 existing-comments">
         {{#each comments as |comment|}}
-          <small class="text-muted">
-            {{comment.user.username}} commented: <a class="text-reset" href="/api/comment/{{comment.id}}">{{comment.text}}</a>
-          </small>
-        {{/each}}
-        {{/if}}
+        <small class="text-muted">
+          {{comment.user.username}} commented: <a class="text-reset" href="/api/comment/{{comment.id}}">{{comment.text}}</a>
+        </small>
         {{#if logged_in}}
           <button class="btn btn-outline-light" id="add-comment-btn" data-id="{{blog.id}}">Add Comment</button>
         {{/if}}
+        {{/each}}
       </div>
+    {{/if}}
+    </div>
+    {{/if}}
+
+    <div class="card-body text-white bg-secondary mb-3 new-blog">
+      <form class="form new-blog-form">
+        <div class="form-group form-row">
+          <input type="text" class="form-control col-8" id="new-blog-title" value="Blog Title" />
+          <textarea type="text" class="form-control col-10" style="margin-top: 1rem" id="new-blog-content">Blog Content</textarea>
+          <button class="btn btn-outline-light btn-sm" type="submit" id="add-blog-btn" style="margin-left: 1rem">Create Blog</button>
+        </div>
+      </form>
+      <form class="form new-comment-form">
+        <div class="form-group form-row comment-div" style="margin-top: 1rem">
+          <textarea type="text"  class="form-control col-6" id="comment-text" name="comment-text">Leave a comment here</textarea>
+          <button class="btn btn-outline-light btn-sm" type="submit" id="add-comment-btn" style="margin-left: 1rem" data-id="{{comment.id}}">Add Comment</button>
+        </div>
+      </form>
+    </div>
   </div>
-  {{/if}}
 
 <script src="/js/blog.js"></script>
 <script src="/js/comment.js"></script>
