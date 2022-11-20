@@ -11,11 +11,13 @@
         <form class="form edit-blog-form">
           <div class="form-group form-row">
             <input type="text" class="form-control col-8" id="blog-title" value="{{this.title}}" />
-            <textarea type="text" class="form-control col-10" id="blog-content">{{this.content}}</textarea>
+            <textarea type="text" class="form-control col-10" style="margin-top: 1rem" id="blog-content">{{this.content}}</textarea>
             {{!-- <a href="/blog/{{blog.id}}">{{blog.comments.length}}</a>
           </div> --}}
-            <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" data-id="{{blog.id}}">Update Blog</button>
-            <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+            <div class="form-group" style="margin-top: 1rem">
+              <button class="btn btn-outline-light btn-sm" type="submit" id="update-blog-btn" style="margin-left: 1rem" data-id="{{blog.id}}">Update Blog</button>
+              <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+            </div>
           </div>
         </form>
         <form class="form new-comment-form">

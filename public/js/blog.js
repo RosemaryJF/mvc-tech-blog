@@ -5,7 +5,7 @@ const newBlogHandler = async (event) => {
   const content = document.querySelector('#new-blog-content').value;
 
   if (title && content) {
-    const response = await fetch(`/api/blogs`, {
+    const response = await fetch(`/api/blog`, {
       method: 'POST',
       body: JSON.stringify({ title, content }),
       headers: {
@@ -26,15 +26,15 @@ const newBlogHandler = async (event) => {
 const updateBlogHandler = async (event) => {
   event.preventDefault();
   if (event.target.hasAttribute('data-id')) {
-    const blogTitle = document.querySelector('#blog-title').value.trim();
-    const blogContent = document.querySelector('#blog-content').value.trim();
+    const title = document.querySelector('#blog-title').value.trim();
+    const content = document.querySelector('#blog-content').value.trim();
 
-    if (blogTitle && blogContent) {
-      const response = await fetch(`/api/blogs/${id}`, {
+    if (title && content) {
+      const response = await fetch(`/api/blog/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          blogTitle,
-          blogContent
+          title,
+          content
         }),
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const updateBlogHandler = async (event) => {
       });
 
       if (response.ok) {
-        document.location.replace(`/api/blogs/${id}`);
+        document.location.replace(`/api/blog/${id}`);
       } else {
         alert('Failed to update blog', response.statusText);
       }
@@ -56,7 +56,7 @@ const deleteBlogHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
-    const response = await fetch(`/api/blogs/${id}`, {
+    const response = await fetch(`/api/blog/${id}`, {
       method: 'DELETE'
     });
 

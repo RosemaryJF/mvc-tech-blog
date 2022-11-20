@@ -34,7 +34,7 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/api/blogs/:id', async (req, res) => {
+router.get('/api/blog/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [{
@@ -57,7 +57,7 @@ router.get('/api/blogs/:id', async (req, res) => {
       return;
     }
     const blog = blogData.get({ plain: true });
-    res.render('blogs', blog);
+    res.render('blog', blog);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -107,7 +107,7 @@ router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.render('homepage', {
-        blogs,
+        blog,
         user_id: req.session.user_id,
         logged_in: req.session.logged_in
       });
