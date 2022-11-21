@@ -12,6 +12,9 @@
         <div class="card-text">
           <p>{{blog.content}}</p>
           <p>To view this blog click the title!</p>
+          {{#if blog.is_author}}
+          <button class="btn btn-outline-light btn-sm" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
+          {{/if}}
         </div>
       </div>
       {{#if comments.length}}

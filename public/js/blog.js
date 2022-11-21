@@ -55,7 +55,7 @@ const updateBlogHandler = async (event) => {
 // Function to delete blog
 const deleteBlogHandler = async (event) => {
   console.log(event.target);
-  if (event.target.querySelector('#delete-blog-btn')) {
+  if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
     const response = await fetch(`/api/blog/${id}`, {
@@ -64,7 +64,7 @@ const deleteBlogHandler = async (event) => {
 
     if (response.ok) {
       console.log('You have successfully deleted this blog!');
-      document.location.replace(`/api/blog/${id}`);
+      document.location.replace(`/dashboard`);
     } else {
       console.error();
       alert('Failed to delete blog');
@@ -78,8 +78,8 @@ document
 
 document
   .querySelector('.edit-blog-form')
-  .addEventListener('click', updateBlogHandler);
+  .addEventListener('submit', updateBlogHandler);
 
 document
-  .querySelector('.delete-blog-btn')
-  .addEventListener('submit', deleteBlogHandler);
+  .querySelector('.existing-posts')
+  .addEventListener('click', deleteBlogHandler);
