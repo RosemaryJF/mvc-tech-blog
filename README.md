@@ -48,7 +48,7 @@ From there the user will be able to launch the application from their intergrate
 
 ## Usage
 
-To use the application the user can navigate to the Heruko deployment link here:
+To use the application the user can navigate to the Heruko deployment link here: https://secure-crag-48796.herokuapp.com/
 
 From the homepage they will be able to view any existing blogs:
 
