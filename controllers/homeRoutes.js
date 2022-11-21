@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Blog, User } = require('../models');
 
+// retrieves all blogs
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data

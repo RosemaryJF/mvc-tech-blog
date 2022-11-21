@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Blog, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// Retrieves all blogs
 router.get('/', withAuth, async (req, res) => {
   try {
     // Get all blogs and JOIN with user data
@@ -34,6 +35,7 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+// Retrieves single blog
 router.get('/api/blog/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
@@ -103,6 +105,7 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+// Logs user out
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {

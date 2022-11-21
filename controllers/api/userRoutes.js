@@ -1,6 +1,7 @@
 const { User } = require('../../models');
 const router = require('express').Router();
 
+// Creates a new user who signs up
 router.post('/', async (req, res) => {
   try {
     const newUser = await User.create(req.body);
@@ -18,6 +19,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// retrieves an existing user who logs in
 router.post('/login', async (req, res) => {
   try {
     // check to see if the user exist
@@ -56,6 +58,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Logs the user out
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {

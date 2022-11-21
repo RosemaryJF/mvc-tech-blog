@@ -31,6 +31,8 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Retrieves single blog
+// Including associated comments
 router.get('/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {

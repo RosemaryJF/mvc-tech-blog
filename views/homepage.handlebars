@@ -1,6 +1,6 @@
-<!-- Card to show previous posts and applicable comments  -->
-<!-- All rendered through handlebar utility functions -->
+
 <div class="homepage-div col-10">
+  <!-- If the user is logged in the can create a new blog -->
   {{#if logged_in}}
   <div class="card-body text-white bg-secondary mb-3 new-blog">
   <h2>Add a new blog!</h2>
@@ -19,6 +19,9 @@
     </form>
   </div>
   {{/if}}
+
+<!-- Card to show previous posts and applicable comments  -->
+<!-- All rendered through handlebar utility functions -->
   {{#if blogs.length}}
   <div class="blog-list col-10">
   {{#each blogs as |blog|}}

@@ -1,5 +1,6 @@
 <div class="blog col-10">
   {{#if this}}
+  <!-- Card shows a single blog -->
   <h2>View Blog</h2>
   <div class="single-blog card-body text-white bg-secondary mb-3">
     <div class="card-title">
@@ -9,7 +10,6 @@
     <div class="card-text">
       <p>{{this.content}}</p>
     </div>
-    <button class="btn btn-outline-light btn-sm" type="submit" id="delete-blog-btn" data-id="{{blog.id}}">Delete Blog</button>
   {{/if}}
     <div class="card-body col-10 existing-comments">
       {{#if comments.lenth}}
@@ -23,6 +23,7 @@
       {{/if}}
     </div>
 
+    <!-- Edit blog form -->
     <form class="form edit-blog-form">
     {{#if this}}
       <h4>Edit Blog</h4>
@@ -35,6 +36,8 @@
         </div>
       </div>
     </form>
+
+    <!-- Add comment form -->
     <form class="form new-comment-form">
       <h6>Add a Comment</h6>
       <div class="form-group form-row comment-div" style="margin-top: 1rem">

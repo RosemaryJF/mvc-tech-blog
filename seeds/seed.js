@@ -5,6 +5,7 @@ const userData = require('./userData.js');
 const blogData = require('./blogData.js');
 const commentData = require('./commentData.js');
 
+// Seeds the database from the seed files
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
